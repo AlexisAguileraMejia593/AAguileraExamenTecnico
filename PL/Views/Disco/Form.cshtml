@@ -1,0 +1,163 @@
+﻿@model ML.Disco
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src=" https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+@Scripts.Render("~/bundles/jquery")
+<div class="container">
+    <h2 class="text-center">Formulario de Disco</h2>
+    <h5>Ingrese la información del nuevo Disco</h5>
+    <hr />
+
+    @using (Html.BeginForm("Form", "Disco", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.IdDisco)
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Titulo)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Artista)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Artista, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.GeneroMusical)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.GeneroMusical, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Duracion)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Duracion, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Año)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Año, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Distribuidora)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Distribuidora, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Ventas)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Ventas, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Disponibilidad)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-disc"></i></span>
+                    @Html.TextBoxFor(model => model.Disponibilidad, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button id="btnGuardar" class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+            <a id="btnCancelar" onmouseover="CambiarColor()" class="btn btn-danger" href="@Url.Action("GetAll", "Disco")"><i class="fa-solid fa-right-from-bracket"></i> Volver</a>
+        </div>
+
+    }
+
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+
+    function lettersOnly(e, lbl) {
+        var charCode = e.keyCode;
+
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8) {
+            $('#' + lbl).text("")
+            return true;
+        }
+        else {
+            $('#' + lbl).text("Solo se aceptan letras")
+            $('#' + lbl).css('color', 'red');
+            return false;
+        }
+    }
+    $("#ddlPais").change(function () {
+        $("#ddlEstado").empty();
+        $.ajax({
+            url: "http://localhost:56970/Usuario/EstadoGetByIdPais", //direccion donde hara la peticion
+            type: "GET", //verbo del controlador
+            dataType: "json", //formato para la información
+            data: { IdPais: $("#ddlPais").val() }, //los datos que necesitemos enviar
+            success: function (result) {
+                $("#ddlEstado").append('<option value="0">' + 'Seleccione una opción' + '</option>');
+                $.each(result, function (i, result) {
+                    $("#ddlEstado").append('<option value="'
+                        + result.IdEstado + '">'
+                        + result.Nombre + '</option>');
+                });
+            },
+            error: function (error) {
+                alert('Ocurrio un error la consultar los estados del pais');
+            }
+        });
+
+    });
+    $("#btnGuardar").mouseenter(function () {
+        $("#btnGuardar").addClass("fa-beat").mouseout(function () {
+            $("#btnGuardar").removeClass("fa-beat")
+        })
+    })
+    function CambiarColor() {
+        $("#btnCancelar").toggleClass("btn-danger btn-secondary")
+    }
+
+    function ValidarImagen() {
+        var extensionesPermitidas = ['jpeg', 'jpg', 'png'];
+        var extensionArchivo = document.getElementById('Imagen').value.split('.').pop().toLowerCase();
+        var isValidFile = false; //saber si es valida o no es valida
+        for (var index in extensionesPermitidas) {
+            if (extensionArchivo === extensionesPermitidas[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extensiones permitidas son : *.' + extensionesPermitidas.join(', *.'));
+            $("#Imagen").val("")
+        }
+        return isValidFile;
+
+    }
+    function visualizarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

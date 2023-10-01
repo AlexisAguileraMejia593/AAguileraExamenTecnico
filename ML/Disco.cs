@@ -17,6 +17,7 @@ namespace ML
         public string Distribuidora { get; set; }
         public decimal Ventas { get; set; }
         public int Disponibilidad { get; set; }
+        public string Imagen {  get; set; }
         public List<Object> Discos {  get; set; }
     }
 }

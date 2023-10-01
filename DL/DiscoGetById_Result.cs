@@ -22,5 +22,6 @@ namespace DL
         public string Distribuidora { get; set; }
         public Nullable<decimal> Ventas { get; set; }
         public Nullable<int> Disponibilidad { get; set; }
+        public string Imagen { get; set; }
     }
 }

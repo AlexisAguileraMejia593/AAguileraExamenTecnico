@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -41,31 +42,43 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult Form(ML.Disco disco)
         {
-            if (disco.IdDisco == 0) //ADD
+            if (ModelState.IsValid)
             {
-                ML.Result result = BL.Disco.Add(disco);
-                if (result.Correct)
+                HttpPostedFileBase file = Request.Files["Imagen"];
+                if (file.ContentLength > 0)
                 {
-                    ViewBag.Mensaje = "Se ha completado el registro";
+                    disco.Imagen = ConvertirABase64(file);
                 }
-                else
+                if (disco.IdDisco == 0) //ADD
                 {
-                    ViewBag.Mensaje = "Error" + result.ErrorMessage;
+                    ML.Result result = BL.Disco.Add(disco);
+                    if (result.Correct)
+                    {
+                        ViewBag.Mensaje = "Se ha completado el registro";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "Error" + result.ErrorMessage;
 
+                    }
+                }
+                else //UPDATE
+                {
+                    ML.Result result = BL.Disco.Update(disco);
+                    if (result.Correct)
+                    {
+                        ViewBag.Mensaje = "Se ha completado la actualizacion";
+
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "Error" + result.ErrorMessage;
+                    }
                 }
             }
-            else //UPDATE
+            else
             {
-                ML.Result result = BL.Disco.Update(disco);
-                if (result.Correct)
-                {
-                    ViewBag.Mensaje = "Se ha completado la actualizacion";
 
-                }
-                else
-                {
-                    ViewBag.Mensaje = "Error" + result.ErrorMessage;
-                }
             }
             return PartialView("Modal");
         }
@@ -82,6 +95,15 @@ namespace PL.Controllers
                 ViewBag.Mensaje = "Error" + result.ErrorMessage;
             }
             return PartialView("Modal");
+        }
+
+        public string ConvertirABase64(HttpPostedFileBase Foto)
+        {
+            //
+            System.IO.BinaryReader reader = new System.IO.BinaryReader(Foto.InputStream);
+            byte[] data = reader.ReadBytes((int)Foto.ContentLength);
+            string imagen = Convert.ToBase64String(data);
+            return imagen;
         }
     }
 }

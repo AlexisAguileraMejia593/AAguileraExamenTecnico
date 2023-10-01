@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fc2656131e7d4856914acc4424fd9d21" Name="Diagram1">
-        <EntityTypeShape EntityType="MixUpModel.Disco" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MixUpModel.Disco" Width="1.5" PointX="4.75" PointY="1.25" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

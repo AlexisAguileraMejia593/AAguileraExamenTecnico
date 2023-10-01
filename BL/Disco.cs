@@ -35,6 +35,7 @@ namespace BL
                             disco.Distribuidora = registro.Distribuidora;
                             disco.Ventas = registro.Ventas.Value;
                             disco.Disponibilidad = registro.Disponibilidad.Value;
+                            disco.Imagen = registro.Imagen;
 
                             result.Objects.Add(disco);
                         }
@@ -70,7 +71,8 @@ namespace BL
                                                        disco.Año, 
                                                        disco.Distribuidora,
                                                        disco.Ventas,
-                                                       disco.Disponibilidad);
+                                                       disco.Disponibilidad,
+                                                       disco.Imagen);
                         if (query >= 1)
                         {
                             result.Correct = true;
@@ -108,6 +110,7 @@ namespace BL
                         disco.Distribuidora = registro.Distribuidora;
                         disco.Ventas = registro.Ventas.Value;
                         disco.Disponibilidad = registro.Disponibilidad.Value;
+                        disco.Imagen = registro.Imagen;
                         result.Object = disco;
 
                         result.Correct = true;
@@ -140,7 +143,8 @@ namespace BL
                         disco.Año,
                         disco.Distribuidora,
                         disco.Ventas,
-                        disco.Disponibilidad
+                        disco.Disponibilidad,
+                        disco.Imagen
                         );
                     if (query >= 1)
                     {

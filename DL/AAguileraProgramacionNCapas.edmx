@@ -18,6 +18,7 @@
           <Property Name="Distribuidora" Type="varchar" MaxLength="50" />
           <Property Name="Ventas" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Disponibilidad" Type="int" />
+          <Property Name="Imagen" Type="varchar(max)" />
         </EntityType>
         <Function Name="DiscoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Titulo" Type="varchar" Mode="In" />
@@ -28,6 +29,7 @@
           <Parameter Name="Distribuidora" Type="varchar" Mode="In" />
           <Parameter Name="Ventas" Type="decimal" Mode="In" />
           <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="DiscoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdDisco" Type="int" Mode="In" />
@@ -46,6 +48,7 @@
           <Parameter Name="Distribuidora" Type="varchar" Mode="In" />
           <Parameter Name="Ventas" Type="decimal" Mode="In" />
           <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="MixUpModelStoreContainer">
           <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
@@ -67,10 +70,10 @@
           <Property Name="Distribuidora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Ventas" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Disponibilidad" Type="Int32" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="MixUpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Disco" EntityType="Self.Disco" />
-          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)" />
           <FunctionImport Name="DiscoAdd">
             <Parameter Name="Titulo" Mode="In" Type="String" />
             <Parameter Name="Artista" Mode="In" Type="String" />
@@ -80,10 +83,12 @@
             <Parameter Name="Distribuidora" Mode="In" Type="String" />
             <Parameter Name="Ventas" Mode="In" Type="Decimal" />
             <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DiscoDelete">
             <Parameter Name="IdDisco" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)" />
           <FunctionImport Name="DiscoGetById" ReturnType="Collection(MixUpModel.DiscoGetById_Result)">
             <Parameter Name="IdDisco" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -97,6 +102,7 @@
             <Parameter Name="Distribuidora" Mode="In" Type="String" />
             <Parameter Name="Ventas" Mode="In" Type="Decimal" />
             <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="DiscoGetAll_Result">
@@ -109,6 +115,7 @@
           <Property Type="String" Name="Distribuidora" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Ventas" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
         <ComplexType Name="DiscoGetById_Result">
           <Property Type="Int32" Name="IdDisco" Nullable="false" />
@@ -120,6 +127,7 @@
           <Property Type="String" Name="Distribuidora" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Ventas" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -130,6 +138,7 @@
           <EntitySetMapping Name="Disco">
             <EntityTypeMapping TypeName="MixUpModel.Disco">
               <MappingFragment StoreEntitySet="Disco">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Artista" ColumnName="Artista" />
@@ -142,6 +151,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DiscoAdd" FunctionName="MixUpModel.Store.DiscoAdd" />
+          <FunctionImportMapping FunctionImportName="DiscoDelete" FunctionName="MixUpModel.Store.DiscoDelete" />
           <FunctionImportMapping FunctionImportName="DiscoGetAll" FunctionName="MixUpModel.Store.DiscoGetAll">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MixUpModel.DiscoGetAll_Result">
@@ -154,11 +165,10 @@
                 <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
                 <ScalarProperty Name="Ventas" ColumnName="Ventas" />
                 <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DiscoAdd" FunctionName="MixUpModel.Store.DiscoAdd" />
-          <FunctionImportMapping FunctionImportName="DiscoDelete" FunctionName="MixUpModel.Store.DiscoDelete" />
           <FunctionImportMapping FunctionImportName="DiscoGetById" FunctionName="MixUpModel.Store.DiscoGetById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MixUpModel.DiscoGetById_Result">
@@ -171,6 +181,7 @@
                 <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
                 <ScalarProperty Name="Ventas" ColumnName="Ventas" />
                 <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

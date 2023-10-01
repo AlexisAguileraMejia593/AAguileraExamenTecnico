@@ -29,12 +29,7 @@ namespace DL
     
         public virtual DbSet<Disco> Disco { get; set; }
     
-        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll");
-        }
-    
-        public virtual int DiscoAdd(string titulo, string artista, string generoMusical, string duracion, string año, string distribuidora, Nullable<decimal> ventas, Nullable<int> disponibilidad)
+        public virtual int DiscoAdd(string titulo, string artista, string generoMusical, string duracion, string año, string distribuidora, Nullable<decimal> ventas, Nullable<int> disponibilidad, string imagen)
         {
             var tituloParameter = titulo != null ?
                 new ObjectParameter("Titulo", titulo) :
@@ -68,7 +63,11 @@ namespace DL
                 new ObjectParameter("Disponibilidad", disponibilidad) :
                 new ObjectParameter("Disponibilidad", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoAdd", tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter);
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoAdd", tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter, imagenParameter);
         }
     
         public virtual int DiscoDelete(Nullable<int> idDisco)
@@ -80,6 +79,11 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoDelete", idDiscoParameter);
         }
     
+        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll");
+        }
+    
         public virtual ObjectResult<DiscoGetById_Result> DiscoGetById(Nullable<int> idDisco)
         {
             var idDiscoParameter = idDisco.HasValue ?
@@ -89,7 +93,7 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetById_Result>("DiscoGetById", idDiscoParameter);
         }
     
-        public virtual int DiscoUpdate(Nullable<int> idDisco, string titulo, string artista, string generoMusical, string duracion, string año, string distribuidora, Nullable<decimal> ventas, Nullable<int> disponibilidad)
+        public virtual int DiscoUpdate(Nullable<int> idDisco, string titulo, string artista, string generoMusical, string duracion, string año, string distribuidora, Nullable<decimal> ventas, Nullable<int> disponibilidad, string imagen)
         {
             var idDiscoParameter = idDisco.HasValue ?
                 new ObjectParameter("IdDisco", idDisco) :
@@ -127,7 +131,11 @@ namespace DL
                 new ObjectParameter("Disponibilidad", disponibilidad) :
                 new ObjectParameter("Disponibilidad", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoUpdate", idDiscoParameter, tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter);
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoUpdate", idDiscoParameter, tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter, imagenParameter);
         }
     }
 }

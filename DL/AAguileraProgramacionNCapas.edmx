@@ -86,11 +86,10 @@
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DiscoDelete">
-            <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          <Parameter Name="IdDisco" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)" />
           <FunctionImport Name="DiscoGetById" ReturnType="Collection(MixUpModel.DiscoGetById_Result)">
-            <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          <Parameter Name="IdDisco" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DiscoUpdate">
             <Parameter Name="IdDisco" Mode="In" Type="Int32" />
@@ -104,8 +103,9 @@
             <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)" />
         </EntityContainer>
-        <ComplexType Name="DiscoGetAll_Result">
+        <ComplexType Name="DiscoGetById_Result">
           <Property Type="Int32" Name="IdDisco" Nullable="false" />
           <Property Type="String" Name="Titulo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Artista" Nullable="true" MaxLength="50" />
@@ -117,7 +117,7 @@
           <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
           <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="DiscoGetById_Result">
+        <ComplexType Name="DiscoGetAll_Result">
           <Property Type="Int32" Name="IdDisco" Nullable="false" />
           <Property Type="String" Name="Titulo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Artista" Nullable="true" MaxLength="50" />
@@ -153,22 +153,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DiscoAdd" FunctionName="MixUpModel.Store.DiscoAdd" />
           <FunctionImportMapping FunctionImportName="DiscoDelete" FunctionName="MixUpModel.Store.DiscoDelete" />
-          <FunctionImportMapping FunctionImportName="DiscoGetAll" FunctionName="MixUpModel.Store.DiscoGetAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MixUpModel.DiscoGetAll_Result">
-                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
-                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
-                <ScalarProperty Name="Artista" ColumnName="Artista" />
-                <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
-                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
-                <ScalarProperty Name="Año" ColumnName="Año" />
-                <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
-                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
-                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DiscoGetById" FunctionName="MixUpModel.Store.DiscoGetById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MixUpModel.DiscoGetById_Result">
@@ -186,6 +170,22 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DiscoUpdate" FunctionName="MixUpModel.Store.DiscoUpdate" />
+          <FunctionImportMapping FunctionImportName="DiscoGetAll" FunctionName="MixUpModel.Store.DiscoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MixUpModel.DiscoGetAll_Result">
+                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Artista" ColumnName="Artista" />
+                <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
+                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

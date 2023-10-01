@@ -79,11 +79,6 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoDelete", idDiscoParameter);
         }
     
-        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll");
-        }
-    
         public virtual ObjectResult<DiscoGetById_Result> DiscoGetById(Nullable<int> idDisco)
         {
             var idDiscoParameter = idDisco.HasValue ?
@@ -136,6 +131,11 @@ namespace DL
                 new ObjectParameter("Imagen", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoUpdate", idDiscoParameter, tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter, imagenParameter);
+        }
+    
+        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll");
         }
     }
 }

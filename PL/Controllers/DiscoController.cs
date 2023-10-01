@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -21,16 +23,30 @@ namespace PL.Controllers
             return View(disco);
         }
         [HttpGet]
-        public ActionResult Form(int? IdDisco)
+        public ActionResult Form(int? IdDisco, HttpPostedFileBase Image)
         {
             ML.Disco disco = new ML.Disco();
-            if(IdDisco != null)
+            if (IdDisco != null)
             {
                 ML.Result result = BL.Disco.GetById(IdDisco.Value);
                 if (result.Correct)
                 {
                     //UNBOXING
                     disco = (ML.Disco)result.Object;
+                }
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Imagen/"), fileName);
+                    Image.SaveAs(path);
+
+                    // Convertir la imagen a base64
+                    using (var ms = new MemoryStream())
+                    {
+                        Image.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                        disco.Imagen = Convert.ToBase64String(array);
+                    }
                 }
             }
             else

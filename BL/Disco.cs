@@ -10,14 +10,14 @@ namespace BL
 {
     public class Disco
     {
-        public static ML.Result GetAll()
+        public static ML.Result GetAll(string titulo, string artista)
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    var query = context.DiscoGetAll().ToList();
+                    var query = context.DiscoGetAll(titulo, artista).ToList();
                     result.Objects = new List<object>();
 
                     if (query != null)

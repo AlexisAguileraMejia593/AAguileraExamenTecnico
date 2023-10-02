@@ -133,9 +133,17 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DiscoUpdate", idDiscoParameter, tituloParameter, artistaParameter, generoMusicalParameter, duracionParameter, añoParameter, distribuidoraParameter, ventasParameter, disponibilidadParameter, imagenParameter);
         }
     
-        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll()
+        public virtual ObjectResult<DiscoGetAll_Result> DiscoGetAll(string titulo, string artista)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll");
+            var tituloParameter = titulo != null ?
+                new ObjectParameter("Titulo", titulo) :
+                new ObjectParameter("Titulo", typeof(string));
+    
+            var artistaParameter = artista != null ?
+                new ObjectParameter("Artista", artista) :
+                new ObjectParameter("Artista", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DiscoGetAll_Result>("DiscoGetAll", tituloParameter, artistaParameter);
         }
     }
 }

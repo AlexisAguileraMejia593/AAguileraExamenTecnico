@@ -34,7 +34,10 @@
         <Function Name="DiscoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdDisco" Type="int" Mode="In" />
         </Function>
-        <Function Name="DiscoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DiscoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Titulo" Type="varchar" Mode="In" />
+          <Parameter Name="Artista" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="DiscoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdDisco" Type="int" Mode="In" />
         </Function>
@@ -103,7 +106,10 @@
             <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)" />
+          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)">
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Artista" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="DiscoGetById_Result">
           <Property Type="Int32" Name="IdDisco" Nullable="false" />

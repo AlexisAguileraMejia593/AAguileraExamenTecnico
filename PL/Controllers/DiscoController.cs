@@ -18,7 +18,25 @@ namespace PL.Controllers
         public ActionResult GetAll()
         {
             ML.Disco disco = new ML.Disco();
-            ML.Result result = BL.Disco.GetAll();
+            disco.Titulo = "";
+            disco.Artista = "";
+            ML.Result result = BL.Disco.GetAll(disco.Titulo, disco.Artista);
+            disco.Discos = result.Objects;
+            return View(disco);
+        }
+        [HttpPost]
+        public ActionResult GetAll(ML.Disco disco)
+        {
+            if (disco.Titulo == null)
+            {
+                disco.Titulo = "";
+            }
+            if (disco.Artista == null)
+            {
+                disco.Artista = "";
+            }
+
+            ML.Result result = BL.Disco.GetAll(disco.Titulo, disco.Artista);
             disco.Discos = result.Objects;
             return View(disco);
         }

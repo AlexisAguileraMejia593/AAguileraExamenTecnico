@@ -5,134 +5,134 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MixUpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Disco">
+        <EntityType Name="Discos">
           <Key>
-            <PropertyRef Name="IdDisco" />
+            <PropertyRef Name="DiscosID" />
           </Key>
-          <Property Name="IdDisco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscosID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Titulo" Type="varchar" MaxLength="50" />
           <Property Name="Artista" Type="varchar" MaxLength="50" />
           <Property Name="GeneroMusical" Type="varchar" MaxLength="50" />
-          <Property Name="Duracion" Type="varchar" MaxLength="50" />
-          <Property Name="Año" Type="varchar" MaxLength="50" />
+          <Property Name="Duracion" Type="time" Precision="7" />
+          <Property Name="Año" Type="date" />
           <Property Name="Distribuidora" Type="varchar" MaxLength="50" />
-          <Property Name="Ventas" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Disponibilidad" Type="int" />
+          <Property Name="Ventas" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Disponibilidad" Type="bit" />
           <Property Name="Imagen" Type="varchar(max)" />
         </EntityType>
-        <Function Name="DiscoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="DiscosAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Titulo" Type="varchar" Mode="In" />
           <Parameter Name="Artista" Type="varchar" Mode="In" />
           <Parameter Name="GeneroMusical" Type="varchar" Mode="In" />
-          <Parameter Name="Duracion" Type="varchar" Mode="In" />
-          <Parameter Name="Año" Type="varchar" Mode="In" />
+          <Parameter Name="Duracion" Type="time" Mode="In" />
+          <Parameter Name="Año" Type="date" Mode="In" />
           <Parameter Name="Distribuidora" Type="varchar" Mode="In" />
           <Parameter Name="Ventas" Type="decimal" Mode="In" />
-          <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Disponible" Type="bit" Mode="In" />
           <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
         </Function>
-        <Function Name="DiscoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdDisco" Type="int" Mode="In" />
+        <Function Name="DiscosDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DiscosID" Type="int" Mode="In" />
         </Function>
-        <Function Name="DiscoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="DiscosGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Titulo" Type="varchar" Mode="In" />
           <Parameter Name="Artista" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="DiscoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdDisco" Type="int" Mode="In" />
+        <Function Name="DiscosGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DiscosID" Type="int" Mode="In" />
         </Function>
-        <Function Name="DiscoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdDisco" Type="int" Mode="In" />
+        <Function Name="DiscosUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DiscosID" Type="int" Mode="In" />
           <Parameter Name="Titulo" Type="varchar" Mode="In" />
           <Parameter Name="Artista" Type="varchar" Mode="In" />
           <Parameter Name="GeneroMusical" Type="varchar" Mode="In" />
-          <Parameter Name="Duracion" Type="varchar" Mode="In" />
-          <Parameter Name="Año" Type="varchar" Mode="In" />
+          <Parameter Name="Duracion" Type="time" Mode="In" />
+          <Parameter Name="Año" Type="date" Mode="In" />
           <Parameter Name="Distribuidora" Type="varchar" Mode="In" />
           <Parameter Name="Ventas" Type="decimal" Mode="In" />
-          <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Disponible" Type="bit" Mode="In" />
           <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="MixUpModelStoreContainer">
-          <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discos" EntityType="Self.Discos" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MixUpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Disco">
+        <EntityType Name="Discos">
           <Key>
-            <PropertyRef Name="IdDisco" />
+            <PropertyRef Name="DiscosID" />
           </Key>
-          <Property Name="IdDisco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscosID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Artista" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="GeneroMusical" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Duracion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Año" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="Time" Precision="7" />
+          <Property Name="Año" Type="DateTime" Precision="0" />
           <Property Name="Distribuidora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Ventas" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Disponibilidad" Type="Int32" />
+          <Property Name="Ventas" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Disponibilidad" Type="Boolean" />
           <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="MixUpEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Disco" EntityType="Self.Disco" />
-          <FunctionImport Name="DiscoAdd">
+          <EntitySet Name="Discos" EntityType="Self.Discos" />
+          <FunctionImport Name="DiscosAdd">
             <Parameter Name="Titulo" Mode="In" Type="String" />
             <Parameter Name="Artista" Mode="In" Type="String" />
             <Parameter Name="GeneroMusical" Mode="In" Type="String" />
-            <Parameter Name="Duracion" Mode="In" Type="String" />
-            <Parameter Name="Año" Mode="In" Type="String" />
+            <Parameter Name="Duracion" Mode="In" Type="Time" />
+            <Parameter Name="Año" Mode="In" Type="DateTime" />
             <Parameter Name="Distribuidora" Mode="In" Type="String" />
             <Parameter Name="Ventas" Mode="In" Type="Decimal" />
-            <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Disponible" Mode="In" Type="Boolean" />
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="DiscoDelete">
-          <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          <FunctionImport Name="DiscosDelete">
+            <Parameter Name="DiscosID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="DiscoGetById" ReturnType="Collection(MixUpModel.DiscoGetById_Result)">
-          <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          <FunctionImport Name="DiscosGetAll" ReturnType="Collection(MixUpModel.DiscosGetAll_Result)">
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Artista" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="DiscoUpdate">
-            <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          <FunctionImport Name="DiscosGetById" ReturnType="Collection(MixUpModel.DiscosGetById_Result)">
+            <Parameter Name="DiscosID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DiscosUpdate">
+            <Parameter Name="DiscosID" Mode="In" Type="Int32" />
             <Parameter Name="Titulo" Mode="In" Type="String" />
             <Parameter Name="Artista" Mode="In" Type="String" />
             <Parameter Name="GeneroMusical" Mode="In" Type="String" />
-            <Parameter Name="Duracion" Mode="In" Type="String" />
-            <Parameter Name="Año" Mode="In" Type="String" />
+            <Parameter Name="Duracion" Mode="In" Type="Time" />
+            <Parameter Name="Año" Mode="In" Type="DateTime" />
             <Parameter Name="Distribuidora" Mode="In" Type="String" />
             <Parameter Name="Ventas" Mode="In" Type="Decimal" />
-            <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Disponible" Mode="In" Type="Boolean" />
             <Parameter Name="Imagen" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(MixUpModel.DiscoGetAll_Result)">
-            <Parameter Name="Titulo" Mode="In" Type="String" />
-            <Parameter Name="Artista" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="DiscoGetById_Result">
-          <Property Type="Int32" Name="IdDisco" Nullable="false" />
+        <ComplexType Name="DiscosGetAll_Result">
+          <Property Type="Int32" Name="DiscosID" Nullable="false" />
           <Property Type="String" Name="Titulo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Artista" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="GeneroMusical" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Duracion" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Año" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="Duracion" Nullable="true" />
+          <Property Type="DateTime" Name="Año" Nullable="true" />
           <Property Type="String" Name="Distribuidora" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Ventas" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="String" Name="Ventas" Nullable="true" MaxLength="21" />
+          <Property Type="String" Name="Disponible" Nullable="false" MaxLength="2" />
           <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="DiscoGetAll_Result">
-          <Property Type="Int32" Name="IdDisco" Nullable="false" />
+        <ComplexType Name="DiscosGetById_Result">
+          <Property Type="Int32" Name="DiscosID" Nullable="false" />
           <Property Type="String" Name="Titulo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Artista" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="GeneroMusical" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Duracion" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Año" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="Duracion" Nullable="true" />
+          <Property Type="DateTime" Name="Año" Nullable="true" />
           <Property Type="String" Name="Distribuidora" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Ventas" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="String" Name="Ventas" Nullable="true" MaxLength="21" />
+          <Property Type="String" Name="Disponible" Nullable="false" MaxLength="2" />
           <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -141,11 +141,10 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MixUpModelStoreContainer" CdmEntityContainer="MixUpEntities">
-          <EntitySetMapping Name="Disco">
-            <EntityTypeMapping TypeName="MixUpModel.Disco">
-              <MappingFragment StoreEntitySet="Disco">
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+          <EntitySetMapping Name="Discos">
+            <EntityTypeMapping TypeName="MixUpModel.Discos">
+              <MappingFragment StoreEntitySet="Discos">
+                <ScalarProperty Name="DiscosID" ColumnName="DiscosID" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Artista" ColumnName="Artista" />
                 <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
@@ -154,15 +153,16 @@
                 <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
                 <ScalarProperty Name="Ventas" ColumnName="Ventas" />
                 <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="DiscoAdd" FunctionName="MixUpModel.Store.DiscoAdd" />
-          <FunctionImportMapping FunctionImportName="DiscoDelete" FunctionName="MixUpModel.Store.DiscoDelete" />
-          <FunctionImportMapping FunctionImportName="DiscoGetById" FunctionName="MixUpModel.Store.DiscoGetById">
+          <FunctionImportMapping FunctionImportName="DiscosAdd" FunctionName="MixUpModel.Store.DiscosAdd" />
+          <FunctionImportMapping FunctionImportName="DiscosDelete" FunctionName="MixUpModel.Store.DiscosDelete" />
+          <FunctionImportMapping FunctionImportName="DiscosGetAll" FunctionName="MixUpModel.Store.DiscosGetAll">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MixUpModel.DiscoGetById_Result">
-                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+              <ComplexTypeMapping TypeName="MixUpModel.DiscosGetAll_Result">
+                <ScalarProperty Name="DiscosID" ColumnName="DiscosID" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Artista" ColumnName="Artista" />
                 <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
@@ -170,16 +170,15 @@
                 <ScalarProperty Name="Año" ColumnName="Año" />
                 <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
                 <ScalarProperty Name="Ventas" ColumnName="Ventas" />
-                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Disponible" ColumnName="Disponible" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DiscoUpdate" FunctionName="MixUpModel.Store.DiscoUpdate" />
-          <FunctionImportMapping FunctionImportName="DiscoGetAll" FunctionName="MixUpModel.Store.DiscoGetAll">
+          <FunctionImportMapping FunctionImportName="DiscosGetById" FunctionName="MixUpModel.Store.DiscosGetById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MixUpModel.DiscoGetAll_Result">
-                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+              <ComplexTypeMapping TypeName="MixUpModel.DiscosGetById_Result">
+                <ScalarProperty Name="DiscosID" ColumnName="DiscosID" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Artista" ColumnName="Artista" />
                 <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
@@ -187,11 +186,12 @@
                 <ScalarProperty Name="Año" ColumnName="Año" />
                 <ScalarProperty Name="Distribuidora" ColumnName="Distribuidora" />
                 <ScalarProperty Name="Ventas" ColumnName="Ventas" />
-                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="Disponible" ColumnName="Disponible" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DiscosUpdate" FunctionName="MixUpModel.Store.DiscosUpdate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

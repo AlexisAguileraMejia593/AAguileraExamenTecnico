@@ -57,7 +57,7 @@
                         <th>Año</th>
                         <th>Distribuidora</th>
                         <th>Ventas</th>
-                        <th>Disponibilidad</th>
+                        <th>Disponible</th>
                         <th class="text-center">Eliminar</th>
                     </tr>
                 </thead>
@@ -85,8 +85,8 @@
                             <td>@disco.Duracion</td>
                             <td>@disco.Año</td>
                             <td>@disco.Distribuidora</td>
-                            <td>@disco.Ventas</td>
-                            <td>@disco.Disponibilidad</td>
+                            <td>$@disco.Ventas</td>
+                            <td>@disco.DisponibilidadTexto</td>
                             <td class="text-center"> <a class="btn btn-danger" href="@Url.Action("Delete", "Disco" ,new {IdDisco = disco.IdDisco})" onclick="return confirm('Estas seguro de que deseas eliminar este registro?');"><i class="fa-solid fa-trash fa-bounce" width="100" height="100"></i></a>
                         </tr>
 
@@ -101,7 +101,7 @@
             </div>
         }
 
-        <script type="text/javascript">
+<script type="text/javascript">
     let table = new DataTable('#myTable', {
         reponsive: true,
         "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "Todos"]],
@@ -125,8 +125,5 @@
             }
 
         })
-
-
     }
-
-        </script>
+</script>

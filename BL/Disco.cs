@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -17,25 +13,38 @@ namespace BL
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    var query = context.DiscoGetAll(titulo, artista).ToList();
+                    var query = context.DiscosGetAll(titulo, artista).ToList();
                     result.Objects = new List<object>();
 
                     if (query != null)
                     {
-
                         foreach (var registro in query)
                         {
-                            ML.Disco disco = new ML.Disco();
-                            disco.IdDisco = registro.IdDisco;
-                            disco.Titulo = registro.Titulo;
-                            disco.Artista = registro.Artista;
-                            disco.GeneroMusical = registro.GeneroMusical;
-                            disco.Duracion = registro.Duracion;
-                            disco.Año = registro.Año;
-                            disco.Distribuidora = registro.Distribuidora;
-                            disco.Ventas = registro.Ventas.Value;
-                            disco.Disponibilidad = registro.Disponibilidad.Value;
-                            disco.Imagen = registro.Imagen;
+                            ML.Disco disco = new ML.Disco
+                            {
+                                IdDisco = registro.DiscosID,
+                                Titulo = registro.Titulo,
+                                Artista = registro.Artista,
+                                GeneroMusical = registro.GeneroMusical,
+                                Duracion = registro.Duracion.Value,
+                                Año = registro.Año.Value,
+                                Distribuidora = registro.Distribuidora,
+                                Imagen = registro.Imagen
+                            };
+
+                            // Maneja 'Ventas' y 'Disponible' de manera especial
+                            decimal ventas;
+                            if (decimal.TryParse(registro.Ventas.TrimStart('$'), out ventas))
+                            {
+                                disco.Ventas = ventas;
+                            }
+                            else
+                            {
+                                // Maneja el error aquí, por ejemplo, asignando un valor predeterminado o registrando un mensaje de error
+                                disco.Ventas = 0; // valor predeterminado
+                            }
+
+                            disco.Disponibilidad = registro.Disponible == "SI";
 
                             result.Objects.Add(disco);
                         }
@@ -57,37 +66,37 @@ namespace BL
         }
         public static ML.Result Add(ML.Disco disco)
         {
-                ML.Result result = new ML.Result();
-                try
+            ML.Result result = new ML.Result();
+            try
+            {
+                //modificacion de prueba
+                using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    //modificacion de prueba
-                    using (DL.MixUpEntities context = new DL.MixUpEntities())
+                    var query = context.DiscosAdd(
+                                                   disco.Titulo,
+                                                   disco.Artista,
+                                                   disco.GeneroMusical,
+                                                   disco.Duracion,
+                                                   disco.Año,
+                                                   disco.Distribuidora,
+                                                   disco.Ventas,
+                                                   disco.Disponibilidad,
+                                                   disco.Imagen);
+                    if (query >= 1)
                     {
-                        var query = context.DiscoAdd(
-                                                       disco.Titulo, 
-                                                       disco.Artista, 
-                                                       disco.GeneroMusical, 
-                                                       disco.Duracion,
-                                                       disco.Año, 
-                                                       disco.Distribuidora,
-                                                       disco.Ventas,
-                                                       disco.Disponibilidad,
-                                                       disco.Imagen);
-                        if (query >= 1)
-                        {
-                            result.Correct = true;
-                        }
-                        else
-                        {
-                            result.Correct = false;
-                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
                     }
                 }
-                catch (Exception ex)
-                {
-                    result.ErrorMessage = ex.Message;
-                }
-                return result;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
         }
         public static ML.Result GetById(int IdDisco)
         {
@@ -96,21 +105,36 @@ namespace BL
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    var registro = context.DiscoGetById(IdDisco).FirstOrDefault();
+                    var registro = context.DiscosGetById(IdDisco).FirstOrDefault();
                     if (registro != null)
                     {
 
-                        ML.Disco disco = new ML.Disco();
-                        disco.IdDisco = registro.IdDisco;
-                        disco.Titulo = registro.Titulo;
-                        disco.Artista = registro.Artista;
-                        disco.GeneroMusical = registro.GeneroMusical;
-                        disco.Duracion = registro.Duracion;
-                        disco.Año = registro.Año;
-                        disco.Distribuidora = registro.Distribuidora;
-                        disco.Ventas = registro.Ventas.Value;
-                        disco.Disponibilidad = registro.Disponibilidad.Value;
-                        disco.Imagen = registro.Imagen;
+                        ML.Disco disco = new ML.Disco
+                        {
+                            IdDisco = registro.DiscosID,
+                            Titulo = registro.Titulo,
+                            Artista = registro.Artista,
+                            GeneroMusical = registro.GeneroMusical,
+                            Duracion = registro.Duracion.Value,
+                            Año = registro.Año.Value,
+                            Distribuidora = registro.Distribuidora,
+                            Imagen = registro.Imagen
+                        };
+
+                        // Maneja 'Ventas' y 'Disponible' de manera especial
+                        decimal ventas;
+                        if (decimal.TryParse(registro.Ventas.TrimStart('$'), out ventas))
+                        {
+                            disco.Ventas = ventas;
+                        }
+                        else
+                        {
+                            // Maneja el error aquí, por ejemplo, asignando un valor predeterminado o registrando un mensaje de error
+                            disco.Ventas = 0; // valor predeterminado
+                        }
+
+                        disco.Disponibilidad = registro.Disponible == "SI";
+
                         result.Object = disco;
 
                         result.Correct = true;
@@ -134,7 +158,7 @@ namespace BL
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    var query = context.DiscoUpdate(
+                    var query = context.DiscosUpdate(
                         disco.IdDisco,
                         disco.Titulo,
                         disco.Artista,
@@ -171,7 +195,7 @@ namespace BL
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
-                    var registro = context.DiscoDelete(IdDisco);
+                    var registro = context.DiscosDelete(IdDisco);
                     if (registro >= 1)
                     {
                         result.Correct = true;

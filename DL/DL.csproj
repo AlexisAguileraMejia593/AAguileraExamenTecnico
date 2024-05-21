@@ -59,56 +59,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AAguileraProgramacionNCapas.Context.cs">
+    <Compile Include="Discos.cs">
+      <DependentUpon>MixUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiscosGetAll_Result.cs">
+      <DependentUpon>MixUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiscosGetById_Result.cs">
+      <DependentUpon>MixUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MixUp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AAguileraProgramacionNCapas.Context.tt</DependentUpon>
+      <DependentUpon>MixUp.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="AAguileraProgramacionNCapas.cs">
+    <Compile Include="MixUp.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AAguileraProgramacionNCapas.tt</DependentUpon>
+      <DependentUpon>MixUp.tt</DependentUpon>
     </Compile>
-    <Compile Include="AAguileraProgramacionNCapas.Designer.cs">
+    <Compile Include="MixUp.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AAguileraProgramacionNCapas.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Disco.cs">
-      <DependentUpon>AAguileraProgramacionNCapas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DiscoGetAll_Result.cs">
-      <DependentUpon>AAguileraProgramacionNCapas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DiscoGetById_Result.cs">
-      <DependentUpon>AAguileraProgramacionNCapas.tt</DependentUpon>
+      <DependentUpon>MixUp.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="AAguileraProgramacionNCapas.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AAguileraProgramacionNCapas.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="AAguileraProgramacionNCapas.edmx.diagram">
-      <DependentUpon>AAguileraProgramacionNCapas.edmx</DependentUpon>
-    </None>
     <None Include="App.config" />
+    <EntityDeploy Include="MixUp.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MixUp.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MixUp.edmx.diagram">
+      <DependentUpon>MixUp.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AAguileraProgramacionNCapas.Context.tt">
+    <Content Include="MixUp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AAguileraProgramacionNCapas.edmx</DependentUpon>
-      <LastGenOutput>AAguileraProgramacionNCapas.Context.cs</LastGenOutput>
+      <DependentUpon>MixUp.edmx</DependentUpon>
+      <LastGenOutput>MixUp.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="AAguileraProgramacionNCapas.tt">
+    <Content Include="MixUp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AAguileraProgramacionNCapas.edmx</DependentUpon>
-      <LastGenOutput>AAguileraProgramacionNCapas.cs</LastGenOutput>
+      <DependentUpon>MixUp.edmx</DependentUpon>
+      <LastGenOutput>MixUp.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

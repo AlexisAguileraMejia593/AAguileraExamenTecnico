@@ -1,11 +1,5 @@
-﻿using Microsoft.Ajax.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,9 +11,11 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            ML.Disco disco = new ML.Disco();
-            disco.Titulo = "";
-            disco.Artista = "";
+            ML.Disco disco = new ML.Disco
+            {
+                Titulo = "",
+                Artista = ""
+            };
             ML.Result result = BL.Disco.GetAll(disco.Titulo, disco.Artista);
             disco.Discos = result.Objects;
             return View(disco);
@@ -118,7 +114,6 @@ namespace PL.Controllers
         }
         public ActionResult Delete(int IdDisco)
         {
-            ML.Disco disco = new ML.Disco();
             ML.Result result = BL.Disco.Delete(IdDisco);
             if (result.Correct)
             {
@@ -130,12 +125,11 @@ namespace PL.Controllers
             }
             return PartialView("Modal");
         }
-
         public string ConvertirABase64(HttpPostedFileBase Foto)
         {
             //
-            System.IO.BinaryReader reader = new System.IO.BinaryReader(Foto.InputStream);
-            byte[] data = reader.ReadBytes((int)Foto.ContentLength);
+            BinaryReader reader = new BinaryReader(Foto.InputStream);
+            byte[] data = reader.ReadBytes(Foto.ContentLength);
             string imagen = Convert.ToBase64String(data);
             return imagen;
         }

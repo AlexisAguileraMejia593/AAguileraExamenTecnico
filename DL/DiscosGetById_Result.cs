@@ -11,17 +11,17 @@ namespace DL
 {
     using System;
     
-    public partial class DiscoGetById_Result
+    public partial class DiscosGetById_Result
     {
-        public int IdDisco { get; set; }
+        public int DiscosID { get; set; }
         public string Titulo { get; set; }
         public string Artista { get; set; }
         public string GeneroMusical { get; set; }
-        public string Duracion { get; set; }
-        public string Año { get; set; }
+        public Nullable<System.TimeSpan> Duracion { get; set; }
+        public Nullable<System.DateTime> Año { get; set; }
         public string Distribuidora { get; set; }
-        public Nullable<decimal> Ventas { get; set; }
-        public Nullable<int> Disponibilidad { get; set; }
+        public string Ventas { get; set; }
+        public string Disponible { get; set; }
         public string Imagen { get; set; }
     }
 }

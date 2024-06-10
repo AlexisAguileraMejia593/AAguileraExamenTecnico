@@ -72,6 +72,9 @@ namespace BL
                 //modificacion de prueba
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
+                    // Convertir "SI" a true (1) y "NO" a false (0)
+                    bool disponibilidad = disco.DisponibilidadTexto == "SI";
+
                     var query = context.DiscosAdd(
                                                    disco.Titulo,
                                                    disco.Artista,
@@ -80,7 +83,7 @@ namespace BL
                                                    disco.Año,
                                                    disco.Distribuidora,
                                                    disco.Ventas,
-                                                   disco.Disponibilidad,
+                                                   disponibilidad,
                                                    disco.Imagen);
                     if (query >= 1)
                     {
@@ -158,6 +161,9 @@ namespace BL
             {
                 using (DL.MixUpEntities context = new DL.MixUpEntities())
                 {
+                    // Convertir "SI" a true (1) y "NO" a false (0)
+                    bool disponibilidad = disco.DisponibilidadTexto == "SI";
+
                     var query = context.DiscosUpdate(
                         disco.IdDisco,
                         disco.Titulo,
@@ -167,7 +173,7 @@ namespace BL
                         disco.Año,
                         disco.Distribuidora,
                         disco.Ventas,
-                        disco.Disponibilidad,
+                        disponibilidad,
                         disco.Imagen
                         );
                     if (query >= 1)

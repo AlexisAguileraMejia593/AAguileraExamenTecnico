@@ -27,7 +27,16 @@ namespace ML
             }
             set
             {
-
+                // Si el valor es "SI", establece Disponibilidad en true; de lo contrario, en false
+                if (value == "SI")
+                {
+                    Disponibilidad = true;
+                }
+                else if (value == "NO")
+                {
+                    Disponibilidad = false;
+                }
+                // Puedes agregar más lógica aquí si es necesario
             }
         }
     }
